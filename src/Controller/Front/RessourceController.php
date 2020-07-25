@@ -3,7 +3,6 @@
 namespace App\Controller\Front;
 
 use App\Entity\Ressource;
-use App\Repository\CategoryAttributeRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\RessourceRepository;
 use Ramsey\Uuid\Uuid;
@@ -41,7 +40,7 @@ class RessourceController extends AbstractController
     /**
      * @Route("/add-ressource", name="add_ressource")
      */
-    public function add(Request $request,RessourceRepository $ressource, CategoryRepository $category, CategoryAttributeRepository $attr)
+    public function add(Request $request,RessourceRepository $ressource, CategoryRepository $category)
     {
         $selectCateg = $request->query->get('selectCateg');
         $lvl_default = 0;
@@ -52,12 +51,9 @@ class RessourceController extends AbstractController
 
         $path = $category->getPath($selectEntity);
 
-        $attr = $attr->findBy(["Category"=> $selectEntity]);
-
         return $this->render('Ressource/ressource.html.twig', [
             "category" => $children,
-            "selectCateg" => $path,
-            "attribute" => $attr
+            "selectCateg" => $path
         ]);
     }
 

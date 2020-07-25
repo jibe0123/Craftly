@@ -6,10 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Admin space</h1>
+    <p>Liste des catégories:</p>
     <ul>
-    <li><a href="{{ path('list_categories') }}">Categories</a></li>
-    <li><a href="{{ path('list_ressources') }}">Ressources</a></li>
+        {% for c in categ %}
+            <a href="{{ path('new_category', { 'categ' : c.title }) }}">{{ c.title }}</a>
+        {% endfor %}
     </ul>
 </body>
 </html>

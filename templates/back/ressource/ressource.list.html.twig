@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Liste des ressources:</p>
+    <ul>
+        {% for r in ress %}
+            <p>{{r.name}}</p>
+        {% endfor %}
+    </ul>
+
+<table>
+
+    <thead>
+        <tr>
+            <th scope="col">Nom ressource</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col">Nombre propositions</th>
+            <th scope="col">Nombre demandes</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+        <tr>
+            <th scope="row">Farine</th>
+            <td>Oléagineux</td>
+            <td>4</td>
+            <td>2</td>
+        </tr>
+
+
+
+    </tbody>
+</table>
+
+</body>
+</html>

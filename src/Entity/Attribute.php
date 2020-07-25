@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
+use App\Repository\AttributeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryAttributeRepository")
+ * @ORM\Entity(repositoryClass=AttributeRepository::class)
  */
-class CategoryAttribute
+class Attribute
 {
     /**
      * @ORM\Id()
@@ -19,22 +20,17 @@ class CategoryAttribute
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="attributes")
-     */
-    private $Category;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
-    private $value;
+    private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $unity;
+    private $unit;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProposalAttribute", mappedBy="category_attribute")
+     * @ORM\OneToMany(targetEntity=ProposalAttribute::class, mappedBy="attribute")
      */
     private $proposalAttributes;
 
@@ -48,38 +44,26 @@ class CategoryAttribute
         return $this->id;
     }
 
-    public function getCategory(): ?Category
+    public function getName(): ?string
     {
-        return $this->Category;
+        return $this->name;
     }
 
-    public function setCategory(?Category $Category): self
+    public function setName(string $name): self
     {
-        $this->Category = $Category;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getValue(): ?string
+    public function getUnit(): ?string
     {
-        return $this->value;
+        return $this->unit;
     }
 
-    public function setValue(string $value): self
+    public function setUnit(string $unit): self
     {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    public function getUnity(): ?string
-    {
-        return $this->unity;
-    }
-
-    public function setUnity(?string $unity): self
-    {
-        $this->unity = $unity;
+        $this->unit = $unit;
 
         return $this;
     }
@@ -96,7 +80,7 @@ class CategoryAttribute
     {
         if (!$this->proposalAttributes->contains($proposalAttribute)) {
             $this->proposalAttributes[] = $proposalAttribute;
-            $proposalAttribute->setCategoryAttribute($this);
+            $proposalAttribute->setAttribute($this);
         }
 
         return $this;
@@ -107,8 +91,8 @@ class CategoryAttribute
         if ($this->proposalAttributes->contains($proposalAttribute)) {
             $this->proposalAttributes->removeElement($proposalAttribute);
             // set the owning side to null (unless already changed)
-            if ($proposalAttribute->getCategoryAttribute() === $this) {
-                $proposalAttribute->setCategoryAttribute(null);
+            if ($proposalAttribute->getAttribute() === $this) {
+                $proposalAttribute->setAttribute(null);
             }
         }
 

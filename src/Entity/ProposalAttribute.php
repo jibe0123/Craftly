@@ -22,21 +22,16 @@ class ProposalAttribute
     private $value;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $unity;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Proposal", inversedBy="attributes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $proposal;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CategoryAttribute", inversedBy="proposalAttributes")
+     * @ORM\ManyToOne(targetEntity=Attribute::class, inversedBy="proposalAttributes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category_attribute;
+    private $attribute;
 
     public function getId(): ?int
     {
@@ -55,18 +50,6 @@ class ProposalAttribute
         return $this;
     }
 
-    public function getUnity(): ?string
-    {
-        return $this->unity;
-    }
-
-    public function setUnity(string $unity): self
-    {
-        $this->unity = $unity;
-
-        return $this;
-    }
-
     public function getProposal(): ?Proposal
     {
         return $this->proposal;
@@ -79,14 +62,14 @@ class ProposalAttribute
         return $this;
     }
 
-    public function getCategoryAttribute(): ?CategoryAttribute
+    public function getAttribute(): ?Attribute
     {
-        return $this->category_attribute;
+        return $this->attribute;
     }
 
-    public function setCategoryAttribute(?CategoryAttribute $category_attribute): self
+    public function setAttribute(?Attribute $attribute): self
     {
-        $this->category_attribute = $category_attribute;
+        $this->attribute = $attribute;
 
         return $this;
     }
