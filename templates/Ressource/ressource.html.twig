@@ -71,29 +71,6 @@
                 </div>
 
             </div>
-            <div class="block-add-ressource">
-                <div class="ressource-categorie">
-                    <h3 class="title is-3">Attributs de la ressource</h3>
-                    <h6 class="subtitle is-6">Les attributs qui déffinissent la ressource</h6>
-                    <div class="columns">
-                        <div class="column">
-                            {% for a in attribute %}
-                                <div class="field has-addons">
-                                    <p class="control">
-                                        <a class="button is-static">
-                                            {{ a.value }}
-                                        </a>
-                                    </p>
-                                    <p class="control">
-                                        <input class="input" type="text" placeholder="{{ a.unity }}">
-                                    </p>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
     </div>
     <footer class="footer" style="    padding: 3rem 1.5rem 2rem; !important;">

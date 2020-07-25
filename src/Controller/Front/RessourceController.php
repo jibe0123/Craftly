@@ -22,7 +22,9 @@ class RessourceController extends AbstractController
      */
     public function ressources_all(RessourceRepository $ressource)
     {
-        return $this->render('Ressource/index.html.twig');
+        return $this->render('Ressource/index.html.twig', [
+            'ressources' => $ressource->findAll(),
+        ]);
     }
 
     /**
@@ -62,16 +64,15 @@ class RessourceController extends AbstractController
      */
     public function new(Request $request,RessourceRepository $ressource, CategoryRepository $category)
     {
-        //TODO: Add photos in another table
-        $parametersAsArray = [];
         if ($content = $request->getContent()) {
-            $parametersAsArrays = json_decode($content, true);
+            $parametersAsArray = [];
+            $parametersAsArray = json_decode($content, true);
         }
         $uuid = Uuid::uuid4();
         $entityManager = $this->getDoctrine()->getManager();
-        dump($parametersAsArray);
         $category = $category->findOneByTitle($parametersAsArray["category"]);
 
+        dump($parametersAsArray);
         $ressource = new Ressource();
         $ressource->setName($parametersAsArray["name"]);
         $ressource->setDescription($parametersAsArray["description"]);

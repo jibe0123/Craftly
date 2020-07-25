@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProposalRepository")
@@ -84,7 +85,7 @@ class Proposal
         return $this->User;
     }
 
-    public function setUser(?User $User): self
+    public function setUser(?UserInterface $User): self
     {
         $this->User = $User;
 

@@ -14,6 +14,7 @@ $('#add-ressource-new').on('click' ,() => {
         "imageBase64": myDropzone.files[0]
     }
 
+
     axios.post('/new-ressource',data).then((response) => {
         $("#link-ressource-added").attr("href", "/ressource/"+response.data)
         $(".message-success-new-ressource").show()
