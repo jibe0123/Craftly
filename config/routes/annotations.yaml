@@ -1,0 +1,17 @@
+controllers:
+    resource: ../../src/Controller/
+    type: annotation
+
+controllers_front:
+    prefix: '/'
+    name_prefix: 'front_'
+    resource: ../../src/Controller/Front
+    type: annotation
+
+controllers_back:
+    prefix: '/admin'
+    name_prefix: 'back_'
+    resource: ../../src/Controller/Back
+    type: annotation
+
+

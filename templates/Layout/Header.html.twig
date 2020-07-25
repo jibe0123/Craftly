@@ -1,0 +1,105 @@
+<section class=" is-header header-visitor">
+    <nav class="navbar">
+        <!-- Logo -->
+        <div class="navbar-brand" style="border:0px solid red; display: flex; align-items: center;">
+            <a href="{{ path('default_index') }}">
+                <h1 class="title" style="font-size: 35pt;" >Crafters</h1>
+            </a>
+        </div>
+        <div id="navbarBasicExample" class="navbar-menu">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="navbar-start navbar-center">
+                    <div class="control has-icons-left input-header-name">
+                        <input class="input" type="text" placeholder="Mots clés">
+                        <span class="icon is-medium is-left">
+                            <i class="fas fa-search"></i>
+                          </span>
+                    </div>
+                    <button class="button is-warning">Rechercher</button>
+                </div>
+            {% else %}
+                <div class="navbar-start">
+                    <a class="hiw-visitor" href="#">Comment ça marche ?</a>
+                </div>
+            {% endif %}
+
+
+            <!-- Nav bar -->
+            <div id="navbar-default" class="navbar-menu" style="border: 0px solid red;">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div class="navbar-end">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="" style="padding: 12px;">
+                                <span class="tag is-success is-light">Admin</span>
+                            </a>
+                        {% endif %}
+                        <div style="display: flex; align-items: center;">
+                            <div class="circle">
+                                <a href="{{ path('profile_index') }}"><span class="initials">{{ app.user.email | first | upper }}</span></a>
+                            </div>
+                            <a href="{{ path('app_logout') }}" style="margin-left: 15px;">
+                                    <span class="icon has-text-info" >
+                                      <i style="color: black" class="fas fa-power-off"></i>
+                                    </span>
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="navbar-end" style="    padding-top: 10px;">
+                        {% if error %}
+                            <div class="alert alert-danger" style="white-space: nowrap;">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                        <form action="{{ path('app_login') }}" method="post">
+                            <div class="columns" style="padding-top: 5px;">
+                                <div class="column"><div class="field">
+                                        <label class="label">Email</label>
+                                        <div class="control">
+                                            <input type="email"  name="email" id="inputEmail" class="form-control"
+                                                   required autofocus>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="field">
+                                        <p class="control has-icons-left">
+                                            <input type="password" name="password" id="inputPassword" class="form-control" required>
+                                            <span class="icon is-small is-left">
+      <i class="fas fa-lock"></i>
+    </span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <input type="hidden" name="_csrf_token"
+                                           value="{{ csrf_token('authenticate') }}"
+                                    >
+                                    <button class="button is-warning" type="submit" style=" font-weight: bold; text-transform: uppercase;">
+                                        Se connecter
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+    </nav>
+</section>
+
+{% if app.user %}
+    <div class="categorie-fonctionnalite">
+        <div class="columns">
+            <div class="column has-text-centered categorie-fonctionnalite-item {{ app.request.get('_route') == 'ressources_all' ? 'active' }}" >
+                <a href="{{ path('ressources_all') }}">Ressources</a>
+            </div>
+            <div class="column has-text-centered categorie-fonctionnalite-item {{ app.request.get('_route') == 'trade_all' ? 'active' }}" >
+                <a href="{{ path('trade_all') }}">Trade</a>
+            </div>
+            <div class="column has-text-centered categorie-fonctionnalite-item" >
+                Matchs
+            </div>
+            <div class="column has-text-centered categorie-fonctionnalite-item" >
+                Echanges
+            </div>
+        </div>
+    </div>
+{% endif %}

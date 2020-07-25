@@ -1,0 +1,90 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Ajouter une ressource
+{% endblock %}
+
+{% block body %}
+    {% include 'Layout/Header.html.twig' %}
+
+    <div class="page-ressource-layout">
+        <div class="ressource_search has-text-centered">
+            <p>Rechercher une <strong class="topline-ressource-search">ressource</strong></p>
+            <div id="autocomplete" class="autocomplete">
+                <input class="autocomplete-input" placeholder="Nom de la ressource"/>
+                <ul class="autocomplete-result-list"></ul>
+            </div>
+            <br>
+            <p>Ou proposer <a href="{{ path('add_ressource', {'selectCateg': 'Food'}) }}"><strong>une ressource</strong></a></p>
+        </div>
+        <div class="primer_categories">
+            <div class="container">
+                <p class="title is-5">Catégories les plus populaire</p>
+                <ul>
+                    <li>
+                        <a href="#">Biens</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="discover-ressource">
+            <div class="columns is-variable is-5">
+                <div class="column is-four-fifths">
+                    <div class="discover-ressource-item">
+                        <p class="is-size-5" >Découvrir</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="discover-ressource-item">
+                        <p class="is-size-5">Nouvelles ressource</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+
+    <script>
+        const searchRessource = input => {
+            const url = 'http://localhost:8000/ressource/search/' + input;
+            return new Promise(resolve => {
+                if (input.length < 2) {
+                    return resolve([])
+                }
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        resolve(data)
+                    })
+            })
+        }
+        createAutocomplete = (selector, countSelector, debounceTime) => {
+            new Autocomplete('#autocomplete', {
+                search: input => {
+                    return searchRessource(input)
+                },
+                debounceTime,
+                getResultValue: result => result.name,
+                onSubmit: result => {
+                    console.log(result);
+                }
+            })
+        }
+        createAutocomplete('.debounced', '.count-debounced', 500)
+    </script>
+    <script>
+        let tags = document.querySelectorAll('.tag-choose-category');
+        console.log(tags);
+        tags.forEach(item => {
+            item.onclick = (e) => {
+                e.target.classList.toggle("is-white");
+            };
+        })
+    </script>
+{% endblock %}

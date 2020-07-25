@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Page d'acceuil
+{% endblock %}
+
+{% block body %}
+   {% include 'Layout/Header.html.twig' %}
+
+    {% if app.user %}
+        <div class="container container-home-logged">
+        </div>
+
+        {% else %}
+        {% include 'Home/NotMemberHome.html.twig' %}
+    {% endif %}
+
+{% endblock %}

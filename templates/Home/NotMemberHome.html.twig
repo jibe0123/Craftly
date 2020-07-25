@@ -1,0 +1,120 @@
+<div class="search-bar-visitor">
+    <div class="columns container">
+        <div class="column">
+            <div class="field">
+                <label class="label">Mots-clé</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Moto, Brocoli, Cours de piano">
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Catégorie</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Ameublement, Outils, Déplacement">
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Localisation</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Paris">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="list-attribute-categories">
+        <div class="item-attribute">
+            <p>Etat</p>
+        </div>
+        <div class="item-attribute">
+            <p>Motorisation</p>
+        </div>
+        <div class="item-attribute">
+            <p>Couleur</p>
+        </div>
+    </div>
+    <div class="search-btn-visitor is-vcentered has-text-centered">
+        <button class="button is-link">Rechercher</button>
+    </div>
+</div>
+<div class="hot-categories container">
+    <h1>Hot categories</h1>
+    <div class="columns">
+        <div class="column">
+            <img src="https://placeimg.com/170/150/animals" alt="">
+            <p>Pizzas</p>
+        </div>
+        <div class="column">
+            <img src="https://placeimg.com/170/150/arch" alt="">
+            <p>Voiture</p>
+        </div>
+        <div class="column">
+            <img src="https://placeimg.com/170/150/nature" alt="">
+            <p>Voiture</p>
+        </div>
+        <div class="column">
+            <img src="https://placeimg.com/170/150/people" alt="">
+            <p>Voiture</p>
+        </div>
+        <div class="column">
+            <img src="https://placeimg.com/170/150/tech" alt="">
+            <p>Voiture</p>
+        </div>
+        <div class="column">
+            <img src="https://placeimg.com/170/150/nature" alt="">
+            <p>Voiture</p>
+        </div>
+
+    </div>
+</div>
+<br>
+<div class="hiw-container">
+    <h1>Comment ça marche ?</h1>
+
+    <div class="container">
+        <div class="columns">
+            <div class="column hiw-item-content">
+                <h2 class="title is-1">les offres</h2>
+                <p class="subtitle is-3">Proposes des ressources et montre ton intéret
+                    pour celles des autres autour de toi.</p>
+            </div>
+            <div class="column">
+                <img src="{{ asset('images/offer_illustration.png') }}" alt="">
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <img src="{{ asset('images/match_illustration.png') }}" alt="">
+            </div>
+            <div class="column hiw-item-content">
+                <h2 class="title is-1">les Matchs</h2>
+                <p class="subtitle is-3">Reponds aux multiples propositions d’échanges. Entre deux, ou plusieurs personnes complémentaires.</p>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column hiw-item-content">
+                <h2 class="title is-1">les négociations</h2>
+                <p class="subtitle is-3">Reussis a trouver un terrain d’entente avec les autres.</p>
+            </div>
+            <div class="column">
+                <img src="{{ asset('images/negociation_illustration.png') }}" alt="">
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <img src="{{ asset('images/echange_illustration.png') }}" alt="">
+            </div>
+            <div class="column hiw-item-content">
+                <h2 class="title is-1">L'échange</h2>
+                <p class="subtitle is-3">Organise les échanges facilement et avec sécurité grace a la plateforme et au systeme de QR code.</p>
+            </div>
+        </div>
+        <br>
+        <div class="columns hiw-finish" style="text-align: center">
+            <button class="button is-warning"><a style="color: black" href="{{ path('app_register') }}">S'enregistrer</a></button>
+        </div>
+    </div>
+</div>

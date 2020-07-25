@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Ajouter une ressource
+{% endblock %}
+
+{% block body %}
+    {% include 'Layout/Header.html.twig' %}
+
+    <div class="columns">
+        <div class="column is-3">
+            <div class="box-profile">
+                <div class="box-profile-cover"></div>
+                <div class="box-profile-avatar">
+                    <div class="circle">
+                        <a href="{{ path('profile_index') }}"><span class="initials">{{ app.user.email | first | upper }}</span></a>
+                    </div>
+                </div>
+                <div class="box-profil-name">
+                    <p>{{ app.user.email }}</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="column">
+            <div class="summary-profile">
+                <h3 class="title is-3">Sommaire</h3>
+            </div>
+        </div>
+    </div>
+    <div class="columns">
+        <div class="column is-3">
+            <div class="box-profile">
+                <p>Annonces</p>
+
+            </div>
+        </div>
+        <div class="column">
+            <div class="summary-profile">
+                <h3 class="title is-3">Top feedback</h3>
+            </div>
+        </div>
+    </div>
+{% endblock %}

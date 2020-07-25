@@ -1,0 +1,109 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Ajouter une ressource
+{% endblock %}
+
+{% block body %}
+    {% include 'Layout/Header.html.twig' %}
+
+    <div class="content container">
+        <div class="add-ressource">
+            <h1 class="title has-text-centered">Ajouter une ressource</h1>
+            <h6 class="subtitle is-6 has-text-centered">Chaque ressource ajouté sera soumis a une modération</h6>
+            <div class="block-add-ressource">
+                <div class="ressource-categorie">
+                    <h3 class="title is-3">Catégorie de la ressource </h3>
+                    <h6 class="subtitle is-6">Choissisez la catégorie qui correspond a la ressource</h6>
+
+                    <div class="columns categorie-picker">
+                        <div class="column is-4">
+                            {% if selectCateg %}
+                                <div class="list-categorie-choice">
+                                    <ul>
+                                        {% for p in selectCateg %}
+                                            <li><a href="{{ path('add_ressource', {'selectCateg' : p.title }) }}">{{ p.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="column" style="margin-top: 25px;">
+                            <div class="list-ressource-categorie">
+                                {% for c in category %}
+                                    <span  class="categorie-item cursor"><a href="{{ path('add_ressource', {'selectCateg' : c.title }) }}">{{ c.title }}</a></span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="block-add-ressource">
+                <div class="ressource-categorie">
+                    <h3 class="title is-3">Détails de la ressource </h3>
+                    <h6 class="subtitle is-6">Rajouter une description et une image qui correspond a la ressource</h6>
+
+                    <div class="columns categorie-picker">
+                        <div class="column is-4">
+                            <form action="#" class="dropzone needsclick dz-clickable" id="uploadPictureRessource">
+                                <div class="dz-message needsclick">
+                                    <button type="button" class="dz-button">Drop files here or click to upload.</button><br>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">Nom de la ressource</label>
+                                <div class="control">
+                                    <input id="new-ressource-name" class="input" type="text" placeholder="e.g Carrote, lit, moto">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Description</label>
+                                <div class="control">
+                                    <textarea id="new-ressource-description" rows="7" cols="50" class="textarea" placeholder="Description de la ressource"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="block-add-ressource">
+                <div class="ressource-categorie">
+                    <h3 class="title is-3">Attributs de la ressource</h3>
+                    <h6 class="subtitle is-6">Les attributs qui déffinissent la ressource</h6>
+                    <div class="columns">
+                        <div class="column">
+                            {% for a in attribute %}
+                                <div class="field has-addons">
+                                    <p class="control">
+                                        <a class="button is-static">
+                                            {{ a.value }}
+                                        </a>
+                                    </p>
+                                    <p class="control">
+                                        <input class="input" type="text" placeholder="{{ a.unity }}">
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <footer class="footer" style="    padding: 3rem 1.5rem 2rem; !important;">
+        <div class="message-success-new-ressource has-text-centered">
+                <p>Nouvelle ressource ajouté. <a id="link-ressource-added" href="#">Voir la ressource</a></p>
+        </div>
+        <br>
+        <div class="content has-text-centered">
+            <button id="add-ressource-new" class="button is-success">Ajouter une ressource</button>
+        </div>
+    </footer>
+
+{% endblock %}
