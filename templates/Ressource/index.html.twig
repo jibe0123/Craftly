@@ -15,10 +15,9 @@
                 <button class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
-                <!-- Content ... -->
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success">Save changes</button>
+                <button class="button is-success applyProposal">Save changes</button>
                 <button class="button">Cancel</button>
             </footer>
         </div>
@@ -47,7 +46,28 @@
             <div class="columns is-variable is-5">
                 <div class="column is-four-fifths">
                     <div class="discover-ressource-item">
-                        <p class="is-size-5" >Découvrir</p>
+                        <div class="columns">
+                            <div class="column">
+                                <h1 class="title">Dernières offre</h1>
+                                <h2 class="subtitle">Subtitle</h2>
+                                {% for o in offer %}
+                                    <p>{{ o.user.name }}</p>
+                                    <p>{{ o.ressource.name }}</p>
+                                    <p>{{ o.ressource.category.title }}</p>
+                                    <button class="button is-success"> J'ai besoin de cet  ressource</button>
+                                {% endfor %}
+                            </div>
+                            <div class="column">
+                                <h1 class="title">Dernière demandes</h1>
+                                <h2 class="subtitle">Subtitle</h2>
+                                {% for n in need %}
+                                    <p>{{ n.user.name }}</p>
+                                    <p>{{ n.ressource.name }}</p>
+                                    <p>{{ n.ressource.category.title }}</p>
+                                    <button class="button is-success" >J'offre cet ressource</button>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="column">
@@ -58,9 +78,9 @@
                                 <li>
                                     <div class="ressource_list">
                                         <p>{{ r.name }}</p>
-                                        <a href="">Offre</a>
+                                        <a href="" data-id="{{ r.id }}" data-user="{{ app.user.id }}" data-name="{{ r.name }}" data-type="1" class="addProposalBtn" >Offre</a>
                                         |
-                                        <a href="">demande</a>
+                                        <a href="" data-id="{{ r.id }}" data-user="{{ app.user.id }}" data-name="{{ r.name }}" data-type="0" class="addProposalBtn" >demande</a>
                                     </div>
                                 </li>
                             {% endfor %}
@@ -113,6 +133,82 @@
             item.onclick = (e) => {
                 e.target.classList.toggle("is-white");
             };
+        })
+    </script>
+    <script>
+
+        const tpl = (name, unit, id) => {
+            return `<div class="field"> <label class="label">${name} ${ unit ? '('+unit+')' : '' }</label> <div class="control"> <input class="input proposalAttributeValue" data-id="${id}" type="text" placeholder=""> </div></div>`
+        }
+        let user_id;
+        let ressource_id;
+        let name;
+        let type;
+
+        let addProposals = document.querySelectorAll('.addProposalBtn')
+        addProposals.forEach((item) => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelector('.modal').classList.toggle('is-active');
+                console.log(item);
+                user_id = item.dataset.user;
+                name = item.dataset.name;
+                ressource_id = item.dataset.id;
+                type = item.dataset.type;
+                document.querySelector('.modal-card-title').innerHTML = name;
+                fetch('/ressource/'+ ressource_id + '/attributes')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        data.forEach(item => {
+                            document.querySelector('.modal-card-body').innerHTML += tpl(item.name, item.unit, item.id);
+                        })
+                    });
+
+            })
+        })
+
+        document.querySelector('.applyProposal').addEventListener('click', (e) => {
+            let values = document.querySelectorAll('.proposalAttributeValue')
+            let attrArray = [];
+            values.forEach(item => {
+                attrArray.push({
+                    id: item.getAttribute('data-id'),
+                    value: item.value
+                });
+            });
+
+
+            (async () => {
+                let url = `/proposal/${type === 1 ? 'offer' : 'need'}`
+
+                console.log(url);
+                const rawResponse = await fetch( url, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "ressource_id" : ressource_id,
+                        "priority" : 1,
+                        "user_id" : user_id,
+                        "attributes" : attrArray
+                    })
+                });
+                const content = await rawResponse.json();
+                document.querySelector('.modal').classList.toggle('is-active');
+                document.querySelector('.modal-card-body').innerHTML = ""
+
+                console.log('return', content);
+            })();
+
+
+        })
+
+        document.querySelector('button.delete').addEventListener('click', (e) => {
+            document.querySelector('.modal').classList.toggle('is-active');
+            document.querySelector('.modal-card-body').innerHTML = ""
         })
     </script>
 {% endblock %}

@@ -128,33 +128,6 @@ class Ressource
         return $this;
     }
 
-    /**
-     * @return Collection|RessourceConnexe[]
-     */
-    public function getPrimerRessource(): Collection
-    {
-        return $this->primer_ressource;
-    }
-
-    public function addPrimerRessource(RessourceConnexe $primerRessource): self
-    {
-        if (!$this->primer_ressource->contains($primerRessource)) {
-            $this->primer_ressource[] = $primerRessource;
-            $primerRessource->addIdRessourceConnexe($this);
-        }
-
-        return $this;
-    }
-
-    public function removePrimerRessource(RessourceConnexe $primerRessource): self
-    {
-        if ($this->primer_ressource->contains($primerRessource)) {
-            $this->primer_ressource->removeElement($primerRessource);
-            $primerRessource->removeIdRessourceConnexe($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|RessourceConnexe[]

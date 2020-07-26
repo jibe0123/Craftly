@@ -22,13 +22,6 @@ class AttributeController extends AbstractController
     {
         $attribute = $attribute->findAll();
 
-        if (!$attribute) {
-            throw $this->createNotFoundException(
-                'No product found for id'
-            );
-        }
-
-        dump($attribute);
 
         return $this->render('back/attribute/attribute.list.html.twig', [
             'attr' => $attribute,

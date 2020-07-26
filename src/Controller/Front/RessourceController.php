@@ -4,6 +4,7 @@ namespace App\Controller\Front;
 
 use App\Entity\Ressource;
 use App\Repository\CategoryRepository;
+use App\Repository\ProposalRepository;
 use App\Repository\RessourceRepository;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,10 +21,20 @@ class RessourceController extends AbstractController
     /**
      * @Route("/ressources", name="ressources_all")
      */
-    public function ressources_all(RessourceRepository $ressource)
+    public function ressources_all(RessourceRepository $ressource, ProposalRepository $proposalRepository)
     {
+        $proposal_offer = $proposalRepository->findBy([
+            'type' => 1
+        ]);
+
+        $proposal_need = $proposalRepository->findBy([
+            'type' => 0
+        ]);
+
         return $this->render('Ressource/index.html.twig', [
             'ressources' => $ressource->findAll(),
+            'offer' => $proposal_offer,
+            'need' => $proposal_need,
         ]);
     }
 
@@ -100,6 +111,30 @@ class RessourceController extends AbstractController
 
         return $this->json($r, 200);
     }
+
+    /**
+     * @Route("/ressource/{id}/attributes", name="ressource_attributex")
+     */
+    public function ressource_attributes($id, RessourceRepository $ressource)
+    {
+        $res = $ressource->findOneBy([
+            'id' => $id
+        ]);
+
+        $attributes = $res->getCategory()->getAttributes();
+
+        $result = [];
+        foreach ($attributes as $a){
+            array_push($result, [
+                "id" => $a->getId(),
+                "name" => $a->getName(),
+                "unit" => $a->getUnit()
+            ]);
+        }
+
+        return $this->json($result, 200);
+    }
+
 
 
 }
