@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<p>Nouvelle catégorie</p>
-<form action="{{ path('back_new_category', { 'categ' : app.request.get('categ')}) }}" method="post">
- <p>Nom : <input type="text" name="category_name" /></p>
- <p><input type="submit" value="OK"></p>
-</form>
-</body>
-</html>
+{% extends 'back/base.html.twig' %}
+
+{% block body %}
+    <p>Nouvelle catégorie</p>
+    <form action="{{ path('back_new_category', { 'categ' : app.request.get('categ')}) }}" method="post">
+        <p>Nom : <input type="text" name="category_name" /></p>
+        <p><input type="submit" value="OK"></p>
+    </form>
+{% endblock %}

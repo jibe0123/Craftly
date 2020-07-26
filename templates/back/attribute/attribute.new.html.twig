@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<p>Nouvel attribut</p>
+{% extends 'back/base.html.twig' %}
 
-<form action="{{ path('back_new_attribute', { 'attr' : app.request.get('attr')}) }}" method="post">
-    <p>Nom : <input type="text" name="attribute_name" /></p>
-    <p>Unité : <input type="text" name="attribute_unit" /></p>
-    <p><input type="submit" value="OK"></p>
-</form>
+{% block body %}
+    <p>Nouvel attribut</p>
 
-</body>
-</html>
+    <form action="{{ path('back_new_attribute', { 'attr' : app.request.get('attr')}) }}" method="post">
+        <p>Nom : <input type="text" name="attribute_name" /></p>
+        <p>Unité : <input type="text" name="attribute_unit" /></p>
+        <p><input type="submit" value="OK"></p>
+    </form>
+
+{% endblock %}
