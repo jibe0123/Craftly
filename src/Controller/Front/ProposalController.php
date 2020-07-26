@@ -101,4 +101,13 @@ class ProposalController extends AbstractController
         return $this->json('Success', 200);
     }
 
+    /**
+     * @Route("/explore", name="proposal_explore")
+     */
+    public function explore()
+    {
+
+        return $this->render('Proposal/explore.html.twig');
+    }
+
 }

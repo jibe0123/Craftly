@@ -10,14 +10,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 
-class TradeController extends AbstractController
+class MatchController extends AbstractController
 {
     /**
-     * @Route("/trade", name="trade_all")
+     * @Route("/matchs", name="matchs")
      */
-    public function trade_all()
+    public function match_all()
     {
-        return $this->render('Trade/index.html.twig');
+        return $this->render('Matchs/index.html.twig');
     }
 
 }
