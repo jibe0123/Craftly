@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+
+
+{% extends 'back/base.html.twig' %}
+
+{% block body %}
     <p>Liste des catégories:</p>
     <ul>
         {% for c in categ %}
-            <a href="{{ path('new_category', { 'categ' : c.title }) }}">{{ c.title }}</a>
+            <a href="{{ path('back_show_category', { 'title' : c.title }) }}">{{ c.title }}</a>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

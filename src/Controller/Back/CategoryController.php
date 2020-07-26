@@ -2,10 +2,12 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\ProposalAttribute;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CategoryRepository;
+use App\Repository\AttributeRepository;
 use App\Entity\Category;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -24,23 +26,61 @@ class CategoryController extends AbstractController
 
         if (!$category) {
             throw $this->createNotFoundException(
-                'No product found for id '.$id
+                'No product found for id '
             );
         }
-
-        dump($category);
 
         return $this->render('back/category/category.list.html.twig', [
             'categ' => $category,
         ]);
         
     }
+
+    /**
+     * @Route("/category/show/{title}", name="show_category", methods={"GET", "POST"})
+     */
+    public function show(CategoryRepository $category, $title, AttributeRepository $attribute, Request $request): Response
+    {
+        $category = $category->findOneByTitle($title);
+        $attr = $attribute->findAll();
+
+        $categoryAttribute = $category->getAttributes();
+        dump($categoryAttribute);
+
+
+        if ($request->isMethod('post')) { 
+            $new_attributes = $request->request->get('newAttribute');
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $attributeToAdd = $attribute->findOneBy([
+                'name' => $new_attributes
+            ]);
+
+            $category->addAttribute($attributeToAdd);
+
+
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('show_category', [
+                'title' => $title
+            ]);
+        }
+
+
+        return $this->render('back/category/category.show.html.twig', [
+            'categ' => $category,
+            'categAttr' => $categoryAttribute,
+            'attribute' => $attr
+        ]);
+        
+    }
+
     /**
      * @Route("/category/new", name="new_category", methods={"GET","POST"})
      */
     public function new(CategoryRepository $category , Request $request): Response
     {
-        // if meth requete = post alors + categ ifels poubelle
 
         $categ = $request->query->get('categ');
         $selectedCategory = $category->findOneByTitle($categ);

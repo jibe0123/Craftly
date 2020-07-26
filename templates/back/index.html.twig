@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Admin space</h1>
-    <ul>
-    <li><a href="{{ path('list_categories') }}">Categories</a></li>
-    <li><a href="{{ path('list_ressources') }}">Ressources</a></li>
-    </ul>
-</body>
-</html>
+{% extends 'back/base.html.twig' %}
 
+{% block body %}
+    <h1 class="title">Admin space</h1>
+
+    <ul>
+        <li><a href="{{ path('back_list_categories') }}">Categories</a></li>
+        <li><a href="{{ path('back_list_ressources') }}">Ressources</a></li>
+        <li><a href="{{ path('back_list_attributes') }}">Attributes</a></li>
+    </ul>
+{% endblock %}

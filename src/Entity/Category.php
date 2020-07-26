@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -62,6 +64,16 @@ class Category
      */
     private $children;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Attribute::class, inversedBy="categories")
+     */
+    private $attributes;
+
+    public function __construct()
+    {
+        $this->attributes = new ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;
@@ -96,6 +108,32 @@ class Category
     public function getLvl()
     {
         return $this->lvl;
+    }
+
+    /**
+     * @return Collection|Attribute[]
+     */
+    public function getAttributes(): Collection
+    {
+        return $this->attributes;
+    }
+
+    public function addAttribute(Attribute $attribute): self
+    {
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes[] = $attribute;
+        }
+
+        return $this;
+    }
+
+    public function removeAttribute(Attribute $attribute): self
+    {
+        if ($this->attributes->contains($attribute)) {
+            $this->attributes->removeElement($attribute);
+        }
+
+        return $this;
     }
 
 

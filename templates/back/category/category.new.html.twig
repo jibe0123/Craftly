@@ -7,7 +7,7 @@
 </head>
 <body>
 <p>Nouvelle catégorie</p>
-<form action="{{ path('new_category', { 'categ' : app.request.get('categ')}) }}" method="post">
+<form action="{{ path('back_new_category', { 'categ' : app.request.get('categ')}) }}" method="post">
  <p>Nom : <input type="text" name="category_name" /></p>
  <p><input type="submit" value="OK"></p>
 </form>
