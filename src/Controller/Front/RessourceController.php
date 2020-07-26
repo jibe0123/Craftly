@@ -55,7 +55,7 @@ class RessourceController extends AbstractController
 
         return $this->render('Ressource/ressource.html.twig', [
             "category" => $children,
-            "selectCateg" => $path
+            "selectCateg" => $path,
         ]);
     }
 

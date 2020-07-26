@@ -4,9 +4,29 @@
 
 {% block body %}
     <p>Liste des catégories:</p>
-    <ul>
-        {% for c in categ %}
-            <a href="{{ path('back_show_category', { 'title' : c.title }) }}">{{ c.title }}</a>
-        {% endfor %}
-    </ul>
+
+    <div class="columns categorie-picker">
+        <div class="column is-4">
+            {% if pathCateg %}
+                <div class="list-categorie-choice">
+                    <ul>
+                        {% for p in pathCateg %}
+                            <li><a href="{{ path('list_categories', {'categ' : p.title }) }}">{{ p.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+        <div class="column" style="margin-top: 25px;">
+            <div class="list-ressource-categorie">
+                {% for c in childs %}
+                    <span  class="categorie-item cursor"><a href="{{ path('list_categories', {'categ' : c.title }) }}">{{ c.title }}</a></span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="column">
+            <button><a href="{{ path('new_category', {'selectCateg' : selecCateg }) }}">Creer categorie enfant</a></button>
+        </div>
+    </div>
+
 {% endblock %}

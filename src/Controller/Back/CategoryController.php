@@ -20,18 +20,23 @@ class CategoryController extends AbstractController
     /**
      * @Route("/category/list", name="list_categories", methods={"GET"})
      */
-    public function list(CategoryRepository $category): Response
+    public function list(CategoryRepository $categoryRepository, Request $request): Response
     {
-        $category = $category->findAll();
+        $selectCateg = $request->query->get('categ');
 
-        if (!$category) {
-            throw $this->createNotFoundException(
-                'No product found for id '
-            );
-        }
+        $selectEntity = $categoryRepository->findOneByTitle($selectCateg);
+
+        $children = $categoryRepository->children($selectEntity, true);
+
+        $path = $categoryRepository->getPath($selectEntity);
+
+        dump($path);
+        dump($children);
 
         return $this->render('back/category/category.list.html.twig', [
-            'categ' => $category,
+            "childs" => $children,
+            "pathCateg" => $path,
+            "selecCateg" => $selectCateg,
         ]);
         
     }
@@ -82,7 +87,7 @@ class CategoryController extends AbstractController
     public function new(CategoryRepository $category , Request $request): Response
     {
 
-        $categ = $request->query->get('categ');
+        $categ = $request->query->get('category');
         $selectedCategory = $category->findOneByTitle($categ);
 
 
