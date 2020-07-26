@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'back/base.html.twig' %}
+
+{% block body %}
     <p>Liste des attributs:</p>
     <ul>
         {% for a in attr %}
-        <p>{{a.name}}         &nbsp   &nbsp      {{a.unit}}</p>
+            <p>{{a.name}}         &nbsp   &nbsp      {{a.unit}}</p>
         {% endfor %}
         <a href="{{ path('back_new_attribute')}}">{{ 'Créer'}}</a>
     </ul>
-</body>
-</html>
+{% endblock %}

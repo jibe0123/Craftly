@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>show</title>
-</head>
-<body>
+{% extends 'back/base.html.twig' %}
+
+{% block body %}
     {{ categ.title }}
     <br>
     <p>Liste des attributs pour la categorie</p>
@@ -20,14 +15,13 @@
     <p>Ajouter un nouvel attribut</p>
     <form method="post">
         <select name="newAttribute" id="">
-        {% for a in attribute %}
-            <option>{{ a.name }}</option>
-        {% endfor %}
+            {% for a in attribute %}
+                <option>{{ a.name }}</option>
+            {% endfor %}
         </select>
         <input type="submit" value="Envoyer le formulaire">
     </form>
     <br>
     <a href="{{ path('back_new_category', { 'categ' : categ.title }) }}">Creer categorie enfant</a>
 
-</body>
-</html>
+{% endblock %}
